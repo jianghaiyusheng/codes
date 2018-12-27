@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://cdn.staticfile.org/angular.js/1.4.6/angular.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script> -->
+<!-- <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script> -->
+<script
+  src="https://code.jquery.com/jquery-1.12.4.js"
+  integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+  crossorigin="anonymous"></script>
+<script
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('#tabs').tabs();
+    })
+</script>
+</head>
+<body style="margin: 10px">
+
+<div ng-app="my_app" ng-controller="my_ctrl" id="tabs">
+    
+    <nav class="navbar navbar-inverse">
+        <ul class="nav navbar-nav">
+            <li class="active">
+                <a href="#tabs-1">Home</a>
+            </li>
+            <li>
+                <a href="#tabs-2">Sample</a>
+            </li>
+            <li>
+                <a href="#tabs-3">Hosital</a>
+            </li>
+            <li>
+                <a href="#tabs-4">Patient</a>
+            </li>
+            <li>
+                <a href="#tabs-5">Settings</a>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+            <li>
+                <a href="#">Role:Administrator</a>
+            </li>
+            <li>
+                <a href="#">Name:Jim</a>
+            </li>
+            <li>
+                <a href="#">Log out</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="row">
+        
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+            <div id="tabs-1">
+                <!-- <div ng-include="'./sample.html'"></div> -->
+                
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            Patient name<br/>
+                            <input type="text" name="name" id="input-name" class="form-control" value="Jim" />                     
+                            </div>
+                            
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            Sample Type<br/>                    
+                            <select name="type1" id="input-type1" class="form-control">
+                                <option value="">type1</option>
+                            </select>               
+                            
+                            </div>
+                            
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            patientID<br/>                     
+                            <input type="text" name="id" id="input-id" class="form-control" value="0000" />                     
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                            Storage Date<br/>                     
+                            <input type="text" name="id" id="input-date" class="form-control" value="0000" />
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">                     
+                            <button type="button" class="btn btn-primary">Query</button>                     
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+    
+                
+                <div class="panel panel-default">
+                      <div class="panel-heading">
+                            <h3 class="panel-title">Query List</h3>
+                      </div>
+                      <div class="panel-body">
+                            Show some information when a patient sample is selected     Jim is selected
+                      </div>
+                      
+                      <table class="table table-hover">
+                          <thead>
+                              <tr>
+                                    <th>#</th>
+                                    <th>Patient ID</th>
+                                    <th>Patient Name</th>
+                                    <th>Storage Location</th>
+                                    <th>Sample State</th>
+                                    <th>Select</th>
+                                </tr>
+                          </thead>
+                          <tbody>
+                              <tr ng-repeat="sample in samples">
+                                    <td>{{$index+1}}</td>
+                                    <td>{{sample.patient_id}}</td>
+                                    <td>{{sample.patient_name}}</td>
+                                    <td>{{sample.storage}}</td> 
+                                    <!-- <td><state-tag state-tag="{{sample.state}}"></state-tag></td> -->
+                                    <td class="state-tag">{{sample.state}}</td>
+                                    <td><input type="radio"></td>
+                                </tr>
+                          </tbody>
+                      </table>
+                </div>
+    
+                
+                <div class="panel panel-default">
+                    
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Record</th>
+                                <th>Note</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="record in records">
+                                <td>record.name</td>
+                                <td>record.note</td>
+                                <td>
+                                        <button type="button" class="btn btn-small btn-default">Edit</button>
+                                        <button type="button" class="btn btn-small btn-default">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+                 
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div style="float:left">
+                            <button type="button" class="btn btn-primary">Save Sample</button>
+                        </div>
+                        <div style="float:left;margin-left: 20px">
+                            <button type="button" class="btn btn-default">Close</button>
+                        </div>
+                        <div style="float:right">
+                            <button type="button" class="btn btn-danger">Delete Sample?</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="tabs-2">
+                <h3>Create Sample</h3>
+                <div class="row" style="margin-top:10px;">                    
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                        Patient name<br/>                        
+                        <input style="width:50%;background-color: darkgray" type="text" name="patient-name" id="input-sample-patient-name" class="form-control">
+                    </div>                    
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                        Storage Date<br/>
+                        <input style="width:35.7%;background-color: darkgray" type="text" name="storage-date" id="input-sample-storage-date" class="form-control">
+                    </div>                      
+                </div>
+
+                <div class="row" style="margin-top:10px;">                    
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                        patient ID<br/>                        
+                        <input style="width:50%;background-color:darkgray" type="text" name="patient-id" id="input-sample-patient-id" class="form-control">
+                    </div>                    
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                        Sample Type<br/>
+                        
+                        <select style="width:35.7%" name="sample-type" id="input-sample-type" class="form-control">
+                            <option value="">DNA Sample</option>
+                        </select>
+                        
+                    </div>                      
+                </div>
+
+                
+                <div class="row" style="margin-top:10px;">
+                    
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                        Sample Images<br/>                        
+                        <img style="height:150px;width:150px;border: 1px" src="#" class="img-responsive" alt="Image">
+                    </div>
+                    
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                        Sample Files<br/>                        
+                        <button type="button" class="btn btn-primary">Upload File</button>
+                        
+                        <div class="progress" style="margin-top:8px;">
+                            <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                <span class="sr-only">  60% Complete</span>
+                            </div>
+                        </div>
+                        <div style="margin-top:8px">
+                            Sample State<br/>                        
+                            <select style="width:35.7%" name="sample-state" id="input-sample-state" class="form-control">
+                                <option value="">State Select</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+
+                
+                <ul class="list-group" style="margin-top:10px;">
+                    <li class="list-group-item disabled">Sample Analysis Result</li>
+                    <li class="list-group-item">Some default panel content here. Sample description, evaluation results.</li>
+                    <li class="list-group-item">Sample description, evaluation results</li>
+                    <li class="list-group-item">Sample description, evaluation results</li>
+                    <li class="list-group-item">Sample description, evaluation results</li>
+                    <li class="list-group-item">Sample description, evaluation results</li>
+                </ul>
+                
+                <div  style="margin-top:10px;">
+                    <div style="float:left;">                        
+                        <button type="button" class="btn btn-primary" style="width:150px">Save</button>                        
+                    </div>
+                    <div style="float:right;">                        
+                        <button type="button" class="btn btn-danger" style="width:150px">Cancel</button>                        
+                    </div>
+                </div>
+                
+            </div>
+            <div id="tabs-3">
+                3
+            </div>
+            <div id="tabs-4">
+                <h3>Create Patient</h3>
+                
+                <div class="row">
+                    
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                        Patient name<br/>                        
+                        <div class="input-group">
+                            <span class="input-group-addon glyphicon glyphicon-user" id="patient-id" aria-hidden="true"></span>
+                            <input type="text" class="form-control" placeholder="Username" aria-describedby="patient-id">
+                        </div>
+                    </div>
+                    
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                        Sex<br/>
+                        
+                        <div class="input-group">
+                            
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="wumen" id="inputwumen">
+                                    wumen
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="men" id="inputmen">
+                                    men
+                                </label>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>                
+                    
+                </div>                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        patient ID<br/>                        
+                        <input type="text" name="patient-id" id="input-patient-id" class="form-control" >
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        BirthDate<br/>                        
+                        <input type="text" name="birth-date" id="input-birth-date" class="form-control" >
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        CardNumber<br/>                        
+                        <input type="text" name="card-number" id="input-card-number" class="form-control" >
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        Address<br/>                        
+                        <input type="text" name="address" id="input-address" class="form-control" >
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        Tell Phone<br/>                        
+                        <input type="text" name="tell-phone" id="input-tell-phone" class="form-control" >
+                    </div>
+                    
+                </div>
+                
+                <h3>Medical Date</h3>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        Doctor<br/>                        
+                        <input type="text" name="doctor" id="input-doctor" class="form-control" >
+                    </div>                     
+                </div>
+
+                
+                <div class="list-group" style="margin-top: 15px">
+                    <a href="#" class="list-group-item active">
+                        <h4 class="list-group-item-heading">Disease diagnosis Note</h4>
+                    </a>
+                    <div class="list-group-item" style="height:200px">item</div>
+               </div>
+               <div style="margin-top:15px">
+                    <div style="float:left;margin-left:15px; ">                            
+                        <button type="button" class="btn btn-large btn-primary" style="width:150px">Save</button>                            
+                    </div>
+                    <div style="float:right; margin-right: 15px">                            
+                        <button type="button" class="btn btn-large btn-danger" style="width:150px">Cancel</button>                            
+                    </div>
+                </div>
+
+            </div>
+            <div id="tabs-5">
+                5
+            </div>
+        </div>
+        
+        
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+            <div class="thumbnail">
+                <img data-src="#" alt="300*200">
+                <div class="caption">
+                    <h3>Jim</h3>
+                    <p>
+                        Description...
+                    </p>                    
+                    <button type="button" class="btn btn-primary">Detail</button>                    
+                </div>
+            </div>
+        </div>
+        
+    
+    </div>
+</div>
+<script>
+var app=angular.module('my_app',[])
+
+app.controller('my_ctrl',function ($scope) {
+    $scope.samples=[{
+        "patient_id":00001,"patient_name":"hk","storage":"1","state":"Warn"
+    },{
+        "patient_id":00002,"patient_name":"hk2","storage":"2","state":"Locked"
+    },{
+        "patient_id":00003,"patient_name":"hk3","storage":"3","state":"Edit"
+    }]
+    $scope.records=[{
+        name:'the first',note:'note'
+    },{
+        name:'the second',note:'note'
+    },{
+        name:'the third',note:'note'
+    }]
+})
+</script>
+</body>
+</html>
